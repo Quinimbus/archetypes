@@ -1,0 +1,22 @@
+quarkus:
+    http:
+        cors:
+            ~: true
+            origins: "*"
+        limits:
+            max-body-size: 100M
+        port: 8080
+quinimbus:
+    persistence:
+        schemas:
+            qnblog:
+                type: record
+                classes:
+                    - ${package}.blog.BlogEntry
+        storages:
+            qnblog:
+                type: mongo
+                schema: qnblog
+                host: localhost
+                username: mongoroot
+                password: mongorootpassword

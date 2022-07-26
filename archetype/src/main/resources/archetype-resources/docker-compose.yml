@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo:5.0.9
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoroot
+      MONGO_INITDB_ROOT_PASSWORD: mongorootpassword
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodata:/mongo/db
+
+  app:
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      QUINIMBUS_PERSISTENCE_STORAGES_QNBLOG_HOST: mongo
+      QUINIMBUS_PERSISTENCE_STORAGES_QNBLOG_USERNAME: mongoroot
+      QUINIMBUS_PERSISTENCE_STORAGES_QNBLOG_PASSWORD: mongorootpassword
+
+volumes:
+  mongodata:
