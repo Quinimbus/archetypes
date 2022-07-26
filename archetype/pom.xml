@@ -24,4 +24,17 @@
             </extension>
         </extensions>
     </build>
+    
+    <distributionManagement>
+        <repository>
+            <id>quinimbus-releases</id>
+            <name>Quinimbus Releases</name>
+            <url>https://repo.quinimbus.cloud/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>quinimbus-snapshots</id>
+            <name>Quinimbus Snapshots</name>
+            <url>https://repo.quinimbus.cloud/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
