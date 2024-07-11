@@ -6,6 +6,8 @@ quarkus:
         limits:
             max-body-size: 100M
         port: 8080
+    resteasy:
+        ignore-application-classes: true
 quinimbus:
     persistence:
         schemas:

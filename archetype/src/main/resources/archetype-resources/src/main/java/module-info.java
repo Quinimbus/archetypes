@@ -11,10 +11,10 @@ module $package {
     requires cloud.quinimbus.tools;
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.databind;
-    requires jakarta.enterprise.cdi.api;
+    requires jakarta.annotation;
+    requires jakarta.cdi;
+    requires jakarta.inject;
+    requires jakarta.ws.rs;
     requires java.logging;
-    requires java.ws.rs;
-    requires java.annotation;
-    requires jakarta.inject.api;
     requires quarkus.core;
 }
