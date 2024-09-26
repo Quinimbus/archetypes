@@ -1,16 +1,21 @@
-FROM maven:3.9.8-eclipse-temurin-21 as build-stage
-WORKDIR quarkus
-ADD pom.xml .
-RUN mvn dependency:go-offline
-ADD src src
-RUN mvn package
+FROM eclipse-temurin:21 AS java-build-stage
+WORKDIR app
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+RUN ./mvnw dependency:go-offline
+COPY src src
+RUN ./mvnw package
 
-FROM eclipse-temurin:21 as production-stage
-WORKDIR quarkus
+FROM scratch AS admin-ui-output-stage
+WORKDIR app
+COPY --from=java-build-stage /app/target/magic/admin-ui /output/magic/admin-ui
+
+FROM eclipse-temurin:21 AS backend-final-stage
+WORKDIR app
 ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -XX:-OmitStackTraceInFastThrow"
-COPY --from=build-stage /quarkus/target/quarkus-app/lib/ /quarkus/lib/
-COPY --from=build-stage /quarkus/target/quarkus-app/*.jar /quarkus/
-COPY --from=build-stage /quarkus/target/quarkus-app/app/ /quarkus/app/
-COPY --from=build-stage /quarkus/target/quarkus-app/quarkus/ /quarkus/quarkus/
-
-CMD ["java", "-jar", "/quarkus/quarkus-run.jar"]
+COPY --from=java-build-stage /app/target/quarkus-app/lib/ /app/lib/
+COPY --from=java-build-stage /app/target/quarkus-app/*.jar /app/
+COPY --from=java-build-stage /app/target/quarkus-app/app/ /app/app/
+COPY --from=java-build-stage /app/target/quarkus-app/quarkus/ /app/quarkus/
+CMD ["java", "-jar", "/app/quarkus-run.jar"]

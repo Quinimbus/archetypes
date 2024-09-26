@@ -1,0 +1,27 @@
+dependencies:
+    adminUi:
+        version: ^0.0.1-build
+app:
+    name: ${artifactId}-admin-ui
+types:
+    blogEntry:
+        icon: post
+        labelSingular: Blog entr
+        labelPlural: Blog entries
+        fields:
+            uid:
+                label: UID
+    blogEntryComment:
+        icon: comment
+        labelSingular: Comment
+        labelPlural: Comments
+        fields:
+            uid:
+                label: UID
+    category:
+        icon: shape
+        labelSingular: Category
+        labelPlural: Categories
+        fields:
+            uid:
+                label: UID

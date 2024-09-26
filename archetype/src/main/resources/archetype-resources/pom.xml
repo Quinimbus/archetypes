@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -11,7 +11,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
-        <quarkus.version>3.8.5</quarkus.version>
+        <quarkus.version>3.8.6</quarkus.version>
         <quinimbus.version>0.1-SNAPSHOT</quinimbus.version>
     </properties>
 
@@ -45,15 +45,27 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-multipart</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-config-yaml</artifactId>
         </dependency>
+
         <dependency>
             <groupId>cloud.quinimbus</groupId>
-            <artifactId>rest-core</artifactId>
+            <artifactId>binarystore-cdi</artifactId>
+            <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>cloud.quinimbus</groupId>
-            <artifactId>rest-crud</artifactId>
+            <artifactId>binarystore-core</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>cloud.quinimbus</groupId>
+            <artifactId>binarystore-persistence</artifactId>
+            <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>cloud.quinimbus</groupId>
@@ -65,6 +77,19 @@
         </dependency>
         <dependency>
             <groupId>cloud.quinimbus</groupId>
+            <artifactId>magic-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cloud.quinimbus</groupId>
+            <artifactId>magic-generator</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>cloud.quinimbus</groupId>
+            <artifactId>persistence-cdi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cloud.quinimbus</groupId>
             <artifactId>persistence-core</artifactId>
         </dependency>
         <dependency>
@@ -73,15 +98,17 @@
         </dependency>
         <dependency>
             <groupId>cloud.quinimbus</groupId>
-            <artifactId>persistence-cdi</artifactId>
+            <artifactId>rest-core</artifactId>
         </dependency>
         <dependency>
             <groupId>cloud.quinimbus</groupId>
-            <artifactId>magic-annotations</artifactId>
+            <artifactId>rest-crud</artifactId>
         </dependency>
+        
         <dependency>
-            <groupId>cloud.quinimbus</groupId>
-            <artifactId>magic-generator</artifactId>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.5.5.Final</version>
         </dependency>
     </dependencies>
 
@@ -94,12 +121,20 @@
                 <configuration>
                     <parameters>true</parameters>
                     <annotationProcessorPaths>
-                        <annotationProcessorPath>
+                        <path>
                             <groupId>cloud.quinimbus</groupId>
                             <artifactId>magic-generator</artifactId>
                             <version>${quinimbus.version}</version>
-                        </annotationProcessorPath>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>1.5.5.Final</version>
+                        </path>
                     </annotationProcessorPaths>
+                    <compilerArgs>
+                        <arg>-Amapstruct.defaultComponentModel=jakarta-cdi</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
@@ -138,12 +173,18 @@
             <id>quinimbus-releases</id>
             <name>Quinimbus Releases</name>
             <url>https://repo.quinimbus.cloud/releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
         <repository>
             <id>quinimbus-snapshots</id>
             <name>Quinimbus Snapshots</name>
             <url>https://repo.quinimbus.cloud/snapshots</url>
             <snapshots />
+            <releases>
+                <enabled>false</enabled>
+            </releases>
         </repository>
     </repositories>
 </project>

@@ -8,17 +8,32 @@ quarkus:
         port: 8080
     resteasy:
         ignore-application-classes: true
+    index-dependency:
+        resteasy-multipart:
+            group-id: org.jboss.resteasy
+            artifact-id: resteasy-multipart-provider
 quinimbus:
+    binary:
+        stores:
+            ${artifactId}:
+                type: file
+                rootPath: ./data/binary
+        persistence-integration:
+            schemas:
+                ${artifactId}:
+                    store: ${artifactId}
     persistence:
         schemas:
-            qnblog:
+            ${artifactId}:
                 type: record
                 classes:
-                    - ${package}.blog.BlogEntry
+                    - ${package}.domain.BlogEntry
+                    - ${package}.domain.BlogEntryComment
+                    - ${package}.domain.Category
         storages:
-            qnblog:
+            ${artifactId}:
                 type: mongo
-                schema: qnblog
+                schema: ${artifactId}
                 host: localhost
                 username: mongoroot
                 password: mongorootpassword

@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   mongo:
-    image: mongo:5.0.27
+    image: mongo:5.0.28
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongoroot
       MONGO_INITDB_ROOT_PASSWORD: mongorootpassword
@@ -12,13 +12,23 @@ services:
       - mongodata:/mongo/db
 
   app:
-    build: .
+    image: ${artifactId}-backend:latest
     ports:
       - 8080:8080
     environment:
-      QUINIMBUS_PERSISTENCE_STORAGES_QNBLOG_HOST: mongo
-      QUINIMBUS_PERSISTENCE_STORAGES_QNBLOG_USERNAME: mongoroot
-      QUINIMBUS_PERSISTENCE_STORAGES_QNBLOG_PASSWORD: mongorootpassword
+      QUINIMBUS_BINARY_STORES_${artifactId.toUpperCase()}_TYPE: file
+      QUINIMBUS_BINARY_STORES_${artifactId.toUpperCase()}_ROOTPATH: /data/binary
+      QUINIMBUS_PERSISTENCE_STORAGES_${artifactId.toUpperCase()}_HOST: mongo
+      QUINIMBUS_PERSISTENCE_STORAGES_${artifactId.toUpperCase()}_USERNAME: mongoroot
+      QUINIMBUS_PERSISTENCE_STORAGES_${artifactId.toUpperCase()}_PASSWORD: mongorootpassword
+    volumes:
+      - binarydata:/data/binary
+
+  admin-ui:
+    image: ${artifactId}-admin-ui:latest
+    ports:
+      - 8081:80
 
 volumes:
   mongodata:
+  binarydata:

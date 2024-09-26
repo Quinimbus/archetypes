@@ -1,5 +1,5 @@
-module $package {
-   
+open module $package {
+    requires cloud.quinimbus.binarystore.persistence;
     requires cloud.quinimbus.common.annotations;
     requires cloud.quinimbus.magic.annotations;
     requires cloud.quinimbus.persistence.api;
@@ -15,6 +15,8 @@ module $package {
     requires jakarta.cdi;
     requires jakarta.inject;
     requires jakarta.ws.rs;
+    requires static java.compiler;
     requires java.logging;
+    requires org.mapstruct;
     requires quarkus.core;
 }
