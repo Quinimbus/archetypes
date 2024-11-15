@@ -9,7 +9,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - mongodata:/mongo/db
+      - mongodata:/data/db
 
   app:
     image: ${artifactId}-backend:latest
