@@ -134,6 +134,7 @@
                     </annotationProcessorPaths>
                     <compilerArgs>
                         <arg>-Amapstruct.defaultComponentModel=jakarta-cdi</arg>
+                        <arg>-Amagic.basepackage=${package}</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>
