@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
         <quarkus.version>3.15.2</quarkus.version>
-        <quinimbus.version>0.1-SNAPSHOT</quinimbus.version>
+        <quinimbus.version>0.1.0</quinimbus.version>
     </properties>
 
     <dependencyManagement>
@@ -55,17 +55,17 @@
         <dependency>
             <groupId>cloud.quinimbus</groupId>
             <artifactId>binarystore-cdi</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.1.0</version>
         </dependency>
         <dependency>
             <groupId>cloud.quinimbus</groupId>
             <artifactId>binarystore-core</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.1.0</version>
         </dependency>
         <dependency>
             <groupId>cloud.quinimbus</groupId>
             <artifactId>binarystore-persistence</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.1.0</version>
         </dependency>
         <dependency>
             <groupId>cloud.quinimbus</groupId>

@@ -1,6 +1,6 @@
 dependencies:
     adminUi:
-        version: ^0.0.1-build
+        version: 0.1.0
 app:
     name: ${artifactId}-admin-ui
 types:
