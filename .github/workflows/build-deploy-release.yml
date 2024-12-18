@@ -1,9 +1,12 @@
-name: build-deploy
+name: build-deploy-release
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - '\d+.\d+.\d+'
+
+permissions:
+    contents: write
 
 jobs:
   build:
@@ -18,7 +21,7 @@ jobs:
           distribution: 'adopt'
       - name: Build with Maven
         working-directory: ./archetype
-        run: mvn --batch-mode --update-snapshots verify
+        run: mvn --batch-mode -Prelease verify
       - name: Deploy package to repository
         working-directory: ./archetype
         env:
@@ -27,6 +30,6 @@ jobs:
         run: |
           mkdir -p ~/.m2
           echo "<settings><servers><server><id>quinimbus-snapshots</id><username>\${env.REPOUSER}</username><password>\${env.REPOPASS}</password></server><server><id>quinimbus-releases</id><username>\${env.REPOUSER}</username><password>\${env.REPOPASS}</password></server></servers></settings>" > ~/.m2/settings.xml
-          mvn -DskipTests deploy
-
-        
+          mvn -DskipTests -Prelease deploy
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
