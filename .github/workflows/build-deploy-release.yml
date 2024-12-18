@@ -3,7 +3,7 @@ name: build-deploy-release
 on:
   push:
     tags:
-      - '\d+.\d+.\d+'
+      - '\d+.\d+.\d+(\.\d+)?'
 
 permissions:
     contents: write
